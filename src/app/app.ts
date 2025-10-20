@@ -1,22 +1,20 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { RouterOutlet, Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+ selector: 'app-root',
+ standalone: true,
+ imports: [RouterOutlet, MatToolbarModule, MatButtonModule],
+ templateUrl: './app.html',
+ styleUrl: './app.css'
 })
 export class App {
-  constructor(private router: Router) {}
-
-  irParaLista() {
-    this.router.navigate(['/']);
-  }
-
-  irParaNovo() {
-    this.router.navigate(['/novo']);
-  }
+ constructor(private router: Router) {}
+ irParaLista() {
+this.router.navigate(['/']);
+ }
+ irParaNovo() {
+this.router.navigate(['/novo']);
+ }
 }

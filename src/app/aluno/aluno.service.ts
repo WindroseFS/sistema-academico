@@ -1,25 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Aluno } from './aluno.model';
-@Injectable({
- providedIn: 'root',
-})
+import { Observable } from 'rxjs';
+
+@Injectable({ providedIn: 'root',})
 export class AlunoService {
- private alunos: Aluno[] = [
-new Aluno( 'João Silva', 8, 1),
-new Aluno( 'Maria Oliveira', 6.5, 2),
-new Aluno( 'Carlos Souza', 9, 3),
-new Aluno( 'Fernanda Santos', 7.5, 4),
- ];
- constructor() {}
+    private http = inject(HttpClient);
+    private readonly API = 'https://localhost:7088/api/aluno';
 
- listar(): Aluno[] {
-return this.alunos;
- }
+ listar(): Observable<Aluno[]> {
+        return this.http.get<Aluno[]>(this.API);
+    }
 
- adicionar(aluno: Omit<Aluno, 'id'>) {
-const id = this.alunos.length + 1;
-const novoAluno = new Aluno(
-aluno.nome, aluno.nota, id);
-this.alunos.push(novoAluno);
- }
+ adicionar(aluno: Omit<Aluno, 'id'>) : Observable<Aluno> {
+        return this.http.post<Aluno>(this.API, aluno);
+    }
 }
